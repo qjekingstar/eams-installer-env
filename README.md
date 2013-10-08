@@ -21,5 +21,5 @@ Eams-Installer-Env
       |
       |---server    #tomcat的zip包，tomcat.zip中根路径下必须包含tomcat目录,tomcat的webapps目录最好为空目录
       |
-      |---webapp    #war包
+      |---webapp    #发布war包的目录
      
