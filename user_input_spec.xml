@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<userInput>
+	<panel id="selectInstallModePanel">
+		<field type="staticText" txt="请选择安装类型" bold="true" size="2" />
+		<field type="divider" align="top"/>
+		<field type="radio" align="left" variable="modify.izpack.install">
+			<spec id="selectInstallModePanel.installMode">
+				<choice txt="全新安装" id="installMode.label.1" value="false" set="true"/>
+				<choice txt="更新配置" id="installMode.label.2" value="true"/>
+			</spec>
+		</field>
+	</panel>
+	<panel id="selectAppContextXMLPanel">
+		<field type="radio" align="left" variable="appContextXMLPath">
+			<spec txt="选择一个配置文件" id="selectAppContextXMLPanel.appContextXMLPath"/>
+		</field>
+	</panel>
+	
+	<panel id="selectDataInstallModePanel">
+		<field type="radio" align="left" variable="dataInstallMode">
+			<spec id="selectDataInstallModePanel.dataInstallMode">
+				<choice txt="快速安装(使用样例数据库)" id="dataInstallMode.label.1" value="DEFAULT_DB" set="true"/>
+				<choice txt="标准安装" id="dataInstallMode.label.2" value="CUSTOM_DB"/>
+			</spec>
+		</field>
+	</panel>
+	
+	<panel id="databasePanel">
+		<field type="staticText" txt="数据库环境配置" bold="true" size="1" />
+		<field type="divider" align="top"/>
+		<field type="combo" align="left" variable="dbType" size="50">
+			<spec txt="数据库类型" id="databasePanel.dbType">
+				<choice txt="Oracle" id="dbType.label.1" value="ORACLE" set="$dbType.select.ORACLE"/>
+				<!--
+				<choice txt="DB2" id="dbType.label.2" value="DB2"/>
+				<choice txt="SQL Server" id="dbType.label.3" value="SQLSERVER" />
+				<choice txt="MySQL" id="dbType.label.4" value="MYSQL" />
+				-->
+				<choice txt="H2 Database" id="dbType.label.5" value="H2" set="$dbType.select.H2"/>
+			</spec>
+		</field>
+		<field type="text" variable="dbUrl">
+		  <spec txt="URL" id="databasePanel.dbUrl" size="50" set="$dbUrl"/>
+		</field>
+		<field type="space"/>
+		<field type="text" variable="dbUser">
+		  <spec txt="数据库用户名" id="databasePanel.dbUser" size="50" set="$dbUser"/>
+		</field>
+		<field type="space"/>
+		<field type="password" variable="dbPassword">
+          <spec>
+            <pwd txt="数据库密码" id="databasePanel.dbPassword" size="50" set="$dbPassword"/>
+          </spec>
+        </field>
+        <field type="space"/>
+        <field type="space"/>
+        <field type="space"/>
+		<field type="staticText" txt="应用服务器配置" bold="true" size="2" />
+		<field type="divider" align="top"/>
+		<field type="text" variable="ctxPath" conditionid="installMode">
+		  <spec txt="应用上下文路径" id="databasePanel.dbUser" size="50" set="$ctxPath"/>
+		</field>
+		<field type="space"/>
+		<field type="text" variable="maxActive">
+		  <spec txt="JNDI数据源最大连接数：" id="databasePanel.dbUser" size="50" set="$maxActive"/>
+		</field>
+		<field type="space"/>
+		<field type="text" variable="maxIdle">
+		  <spec txt="JNDI数据源最大空闲连接数：" id="databasePanel.dbUser" size="50" set="$maxIdle"/>
+		</field>
+		<field type="space"/>
+		<field type="text" variable="maxWait">
+		  <spec txt="JNDI数据源最大等待连接数：" id="databasePanel.dbUser" size="50" set="$maxWait"/>
+		</field>
+	</panel>
+</userInput>
