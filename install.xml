@@ -11,8 +11,6 @@
         <javaversion>1.6</javaversion>
         <uninstaller write="no"/>
     </info>
-	
-	
 
     <!-- 
         The gui preferences indication.
@@ -26,7 +24,7 @@
     -->
     <locale>
         <langpack iso3="chn"/>
-	<langpack iso3="eng"/>
+        <langpack iso3="eng"/>
     </locale>
 
     <!-- 
@@ -36,11 +34,9 @@
     <resources>
         <res id="LicencePanel.licence" src="legal/Licence.txt"/>
         <!--
-        <res id="InfoPanel.info" src="Readme.txt"/>
+            <res id="InfoPanel.info" src="Readme.txt"/>
         -->
-        
         <res id="userInputSpec.xml" src="user_input_spec.xml" parse="yes" type="xml"/>
-	
 
         <res id="appContext.ftl" src="install/template/appContext.ftl"/>
         <res id="h2.createTable.sql" src="install/sql/h2/createTable.sql"/>
@@ -51,39 +47,43 @@
         <res id="oracle.initDemoDatas.sql" src="install/sql/oracle/initDemoDatas.sql"/>
     </resources>
     
-	<conditions>
-		<condition type="variable" id="installMode">
-			<name>modify.izpack.install</name>
-			<value>false</value>
-		</condition>
-		<condition type="variable" id="updateMode">
-			<name>modify.izpack.install</name>
-			<value>true</value>
-		</condition>
-		<condition type="variable" id="installDemoDBMode">
-			<name>dataInstallMode</name>
-			<value>DEFAULT_DB</value>
-		</condition>
-		
-		<condition type="and" id="installDemoDB">
-			<condition type="ref" refid="installMode"/>
-	        <condition type="ref" refid="installDemoDBMode" />
-		</condition>
-		
-		<condition type="variable" id="installCustomDB">
-			<name>dataInstallMode</name>
-			<value>CUSTOM_DB</value>
-		</condition>
-		<condition type="and" id="installModeShowDatabasePanel">
-	        <condition type="ref" refid="installMode"/>
-	        <condition type="ref" refid="installCustomDB" />
-	    </condition>
-	    <condition type="or" id="showDatabasePanel">
-	        <condition type="ref" refid="updateMode"/>
-	        <condition type="ref" refid="installModeShowDatabasePanel" />
-	    </condition>
-	</conditions>
-	
+    <conditions>
+        <condition type="variable" id="installMode">
+            <name>modify.izpack.install</name>
+            <value>false</value>
+        </condition>
+        <condition type="variable" id="updateMode">
+            <name>modify.izpack.install</name>
+            <value>true</value>
+        </condition>
+        <condition type="variable" id="installDemoDBMode">
+            <name>dataInstallMode</name>
+            <value>DEFAULT_DB</value>
+        </condition>
+        
+        <condition type="and" id="installDemoDB">
+            <condition type="ref" refid="installMode"/>
+            <condition type="ref" refid="installDemoDBMode" />
+        </condition>
+        
+        <condition type="variable" id="installCustomDB">
+            <name>dataInstallMode</name>
+            <value>CUSTOM_DB</value>
+        </condition>
+        <condition type="and" id="installModeShowDatabasePanel">
+            <condition type="ref" refid="installMode"/>
+            <condition type="ref" refid="installCustomDB" />
+        </condition>
+        <condition type="or" id="showDatabasePanel">
+            <condition type="ref" refid="updateMode"/>
+            <condition type="ref" refid="installModeShowDatabasePanel" />
+        </condition>
+
+        <condition type="not" id="notWindows">
+            <condition type="ref" refid="izpack.windowsinstall"/>
+        </condition>
+    </conditions>
+    
     <!-- 
         The panels section.
         We indicate here which panels we want to use. The order will be respected.
@@ -98,32 +98,33 @@
         <panel classname="UserInputPanel" id="selectInstallModePanel"/>
         <panel classname="TargetPanel" id="targetPanel" condition="installMode"/>
         <panel classname="TargetPanel" id="updateTargetPanel" condition="updateMode">
-        	<validator classname="com.ekingstar.eams.installer.validator.AppContextXMLExistsValidator" />
+            <validator classname="com.ekingstar.eams.installer.validator.AppContextXMLExistsValidator" />
         </panel>
         <panel classname="UserInputPanel" id="selectDataInstallModePanel" condition="installMode">
-        	<validator classname="com.ekingstar.eams.installer.validator.DataInstallModeValidator"/>
+            <validator classname="com.ekingstar.eams.installer.validator.DataInstallModeValidator"/>
         </panel>
-		<panel classname="com.ekingstar.eams.installer.panels.userinput.SelectAppContextXMLPanel" id="selectAppContextXMLPanel" condition="updateMode">
-			<validator classname="com.ekingstar.eams.installer.validator.AppConfigPrepare" />
-		</panel>
-		<panel classname="UserInputPanel" id="databasePanel" condition="showDatabasePanel">
-			<validator classname="com.ekingstar.eams.installer.validator.AppConfigValidator" />
-		</panel>
+        <panel classname="com.ekingstar.eams.installer.panels.userinput.SelectAppContextXMLPanel" id="selectAppContextXMLPanel" condition="updateMode">
+            <validator classname="com.ekingstar.eams.installer.validator.AppConfigPrepare" />
+        </panel>
+        <panel classname="UserInputPanel" id="databasePanel" condition="showDatabasePanel">
+            <validator classname="com.ekingstar.eams.installer.validator.AppConfigValidator" />
+        </panel>
         <panel classname="PacksPanel" id="packsPanel"/>
         <panel classname="InstallPanel" id="installPanel"/>
         <panel classname="FinishPanel" id="finishPanel"/>
     </panels>
 
-	<jar src="install/lib/eams-install.jar"/>
-	<jar src="install/lib/commons-io-2.4.jar"/>
-	<jar src="install/lib/h2-1.3.148.jar"/>
-	<jar src="install/lib/ojdbc6.jar"/>
-	<jar src="install/lib/mybatis-3.2.2.jar"/>
-	<jar src="install/lib/freemarker-2.3.19.jar"/>
-	
+    <jar src="install/lib/eams-install.jar"/>
+    <jar src="install/lib/commons-io-2.4.jar"/>
+    <jar src="install/lib/h2-1.3.148.jar"/>
+    <jar src="install/lib/ojdbc6.jar"/>
+    <jar src="install/lib/mybatis-3.2.2.jar"/>
+    <jar src="install/lib/freemarker-2.3.19.jar"/>
+    
     <listeners>
         <listener classname="com.ekingstar.eams.installer.listener.SQLScriptExecuteListener" stage="install" />
         <listener classname="com.ekingstar.eams.installer.listener.ApplicationConfigListener" stage="install" />
+        <listener classname="com.ekingstar.eams.installer.listener.ChmodInstallerListener" stage="install" />
     </listeners>
     <!-- 
         The packs section.
@@ -154,7 +155,14 @@
             <!-- Reccursive adding -->
         </pack>
         <pack name="更新配置" required="yes" hidden="true" installGroups="updateAppCtxConfig">
-        	<description>更新配置</description>
+            <description>更新配置</description>
         </pack>
+        <!--
+        <pack name="启动服务器" required="yes" hidden="true">
+	    <description>启动服务器</description>
+            <executable targetfile="$INSTALL_PATH/tomcat/bin/startup.sh" condition="notWindows"/>
+            <executable targetfile="$INSTALL_PATH/tomcat/bin/startup.bat" condition="izpack.windowsinstall"/>
+        </pack>
+        -->
     </packs>
 </installation>
