@@ -32,21 +32,25 @@
         The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
     -->
     <resources>
-        <res id="LicencePanel.licence" src="legal/Licence.txt"/>
+        <res id="LicencePanel.licence" src="legal/Licence.txt" parse="yes" />
         <!--
             <res id="InfoPanel.info" src="Readme.txt"/>
         -->
         <res id="userInputSpec.xml" src="user_input_spec.xml" parse="yes" type="xml"/>
 
         <res id="appContext.ftl" src="install/template/appContext.ftl"/>
-        <res id="h2.createTable.sql" src="install/sql/h2/createTable.sql"/>
-        <res id="h2.initDatas.sql" src="install/sql/h2/initDatas.sql"/>
-        <res id="h2.initDemoDatas.sql" src="install/sql/h2/initDemoDatas.sql"/>
-        <res id="oracle.createTable.sql" src="install/sql/oracle/createTable.sql"/>
-        <res id="oracle.initDatas.sql" src="install/sql/oracle/initDatas.sql"/>
-        <res id="oracle.initDemoDatas.sql" src="install/sql/oracle/initDemoDatas.sql"/>
+
+	<!-- H2 数据库创建脚本 -->
+	<res id="h2.create.1.sql" src="install/sql/h2/create/1.table.sql"/>
+	<!-- H2 数据库初始化数据脚本 -->
+        <res id="h2.init.1.sql" src="install/sql/h2/init/1.datas.sql"/>
+
+        <!-- Oracle 数据库创建脚本 -->
+        <res id="oracle.create.1.sql" src="install/sql/oracle/create/1.table.sql"/>
+        <!-- Oracle 数据库初始化数据脚本 -->
+        <res id="oracle.init.1.sql" src="install/sql/oracle/init/1.datas.sql"/>
     </resources>
-    
+
     <conditions>
         <condition type="variable" id="installMode">
             <name>modify.izpack.install</name>
@@ -146,12 +150,8 @@
             <description>创建数据结构</description>
             <!-- Reccursive adding -->
         </pack>
-        <pack name="初始化基础数据" required="no" condition="showDatabasePanel" installGroups="initDatas">
-            <description>初始化基础数据</description>
-            <!-- Reccursive adding -->
-        </pack>
-        <pack name="初始化样例数据" required="no" condition="showDatabasePanel" installGroups="initDemoDatas">
-            <description>初始化样例数据</description>
+        <pack name="初始化数据" required="no" condition="showDatabasePanel" installGroups="initDatas">
+            <description>初始化数据</description>
             <!-- Reccursive adding -->
         </pack>
         <pack name="更新配置" required="yes" hidden="true" installGroups="updateAppCtxConfig">
