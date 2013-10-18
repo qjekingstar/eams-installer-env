@@ -41,14 +41,16 @@
         <res id="appContext.ftl" src="install/template/appContext.ftl"/>
 
 	<!-- H2 数据库创建脚本 -->
-	<res id="h2.create.1.sql" src="install/sql/h2/create/1.table.sql"/>
+	<res id="h2.create.1.sql" src="install/sql/h2/create/1-table.sql"/>
 	<!-- H2 数据库初始化数据脚本 -->
-        <res id="h2.init.1.sql" src="install/sql/h2/init/1.datas.sql"/>
+        <res id="h2.init.1.sql" src="install/sql/h2/init/1-datas.sql"/>
 
         <!-- Oracle 数据库创建脚本 -->
-        <res id="oracle.create.1.sql" src="install/sql/oracle/create/1.table.sql"/>
+        <res id="oracle.create.1.sql" src="install/sql/oracle/create/1-table.sql"/>
+        <res id="oracle.create.2.sql" src="install/sql/oracle/create/2-sequences.sql"/>
+        <res id="oracle.create.3.sql" src="install/sql/oracle/create/3-comments.sql"/>
         <!-- Oracle 数据库初始化数据脚本 -->
-        <res id="oracle.init.1.sql" src="install/sql/oracle/init/1.datas.sql"/>
+        <res id="oracle.init.1.sql" src="install/sql/oracle/init/1-datas.sql"/>
     </resources>
 
     <conditions>
@@ -128,7 +130,7 @@
     <listeners>
         <listener classname="com.ekingstar.eams.installer.listener.SQLScriptExecuteListener" stage="install" />
         <listener classname="com.ekingstar.eams.installer.listener.ApplicationConfigListener" stage="install" />
-        <listener classname="com.ekingstar.eams.installer.listener.ChmodInstallerListener" stage="install" />
+        <listener classname="com.ekingstar.eams.installer.listener.EamsInstallerFileListener" stage="install" />
     </listeners>
     <!-- 
         The packs section.
@@ -141,6 +143,9 @@
         </pack>
         <pack name="EAMS核心平台" required="yes"  installGroups="addWar" condition="installMode">
             <description>EAMS系统核心平台</description>
+	    <fileset dir="install/import/" targetdir="$INSTALL_PATH/tomcat/webapps/eams/WEB-INF/classes" casesensitive="yes">
+	    	<include name="*.xls"/>
+	    </fileset>
             <file src="webapp/eams.war" targetdir="$INSTALL_PATH/tomcat/webapps/eams" unpack="true"/>
         </pack>
         <pack name="安装样例数据库" required="yes" condition="installDemoDB" installGroups="createTable,initDatas,initDemoDatas">

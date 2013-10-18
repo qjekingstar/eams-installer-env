@@ -1,11 +1,33 @@
 delete from se_users;
 commit;
-insert into se_users (id, created_at, updated_at, effective_at, enabled, fullname, invalid_at, mail, name, password, password_expired_at, remark, creator_id)values (seq_se_users.nextVal,sysdate,sysdate,sysdate,1,'管理员',null,'admin@supwisdom.com','admin','c4ca4238a0b923820dcc509a6f75849b',null,null,null);
+insert into se_users (id, created_at, updated_at, effective_at, enabled, fullname, invalid_at, mail, name, password, password_expired_at, remark, creator_id)values (1,sysdate,sysdate,sysdate,1,'管理员',null,'admin@supwisdom.com','admin','c4ca4238a0b923820dcc509a6f75849b',null,null,null);
 delete from se_func_resources;
 commit;
 insert into se_func_resources (actions, enabled, entry, name, remark, scope, title, id) values (null, 1, 1, '/login', null, 0, '登录',seq_se_func_resources.nextVal);
 insert into se_func_resources (actions, enabled, entry, name, remark, scope, title, id) values (null, 1, 1, '/dataQuery', null, 0, '数据查询',seq_se_func_resources.nextVal);
 insert into se_func_resources (actions, enabled, entry, name, remark, scope, title, id) values (null, 1, 1, '/bootstrap', null, 0, '首次安装',seq_se_func_resources.nextVal);
+
+delete from se_data_types;
+commit;
+insert into se_data_types(id,key_name,name,properties,type_name)values(1,'id','项目','name','com.ekingstar.eams.core.model.ProjectBean');
+insert into se_data_types(id,key_name,name,properties,type_name)values(2,'id','方向','code,name','com.ekingstar.eams.core.model.DirectionBean');
+insert into se_data_types(id,key_name,name,properties,type_name)values(3,'id','专业','code,name','com.ekingstar.eams.core.model.MajorBean');
+insert into se_data_types(id,key_name,name,properties,type_name)values(4,'id','学历层次','name','com.ekingstar.eams.core.code.industry.Education');
+insert into se_data_types(id,key_name,name,properties,type_name)values(5,'id','部门','name','com.ekingstar.eams.base.model.DepartmentBean');
+insert into se_data_types(id,key_name,name,properties,type_name)values(6,'id','学生类别','name','com.ekingstar.eams.core.code.school.StdType');
+delete from se_profile_fields;
+commit;
+insert into se_profile_fields(id,multiple,name,required,source,title,type_id)values(1,1,'projects',0,'oql:from com.ekingstar.eams.core.Project','项目',1);
+insert into se_profile_fields(id,multiple,name,required,source,title,type_id)values(2,1,'departs',0,'oql:from com.ekingstar.eams.base.Department','部门',5);
+insert into se_profile_fields(id,multiple,name,required,source,title,type_id)values(3,1,'stdTypes',0,'oql:from com.ekingstar.eams.core.code.school.StdType','学生类别',6);
+insert into se_profile_fields(id,multiple,name,required,source,title,type_id)values(4,1,'educations',0,'oql:from com.ekingstar.eams.core.code.industry.Education','学历层次',4);
+delete from se_user_profiles;
+commit;
+insert into se_user_profiles(id,user_id)values(1,1);
+insert into se_user_profiles(id,user_id)values(2,1);
+insert into se_user_profiles(id,user_id)values(3,1);
+insert into se_user_profiles(id,user_id)values(4,1);
+
 delete from sys_code_categories;
 commit;
 insert into sys_code_categories (id, indexno, name, parent_id) values (seq_sys_code_categories.nextVal,0,'国家标准',null);
