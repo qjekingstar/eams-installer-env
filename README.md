@@ -1,6 +1,6 @@
 Eams-Installer-Env
 =============
-这个项目是eamsInstaller(https://github.com/qjekingstar/eamsInstaller)的Demo环境
+这个项目是[eamsInstaller](https://github.com/qjekingstar/eamsInstaller)的Demo环境
 
 ###用法:
   [安装izpack 5.0 下载](http://dist.codehaus.org/izpack/releases/5.0.0-beta11/izpack-dist-5.0.0-beta11-installer.jar)
